@@ -7,61 +7,18 @@ import Link from "next/link";
 function index() {
 
   const [accessToken, setAccessToken] = useState(null);
-  const [userAutherized, setUserAutherized] = useState(false);
   const [user, setUser] = useState(null);
   const [followers, setFollowers] = useState(null);
-
-  useEffect(() => {
-    const { code } = qs.parseUrl(window.location.href).query;
-    if (code) {
-      setUserAutherized(true);
-    }
-    else {
-      setUserAutherized(false);
-    }
-  }, []);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       setAccessToken(accessToken);
-
+    }else{
+      window.location.assign('/')
     }
   }, []);
 
-  function redirectToGithub() {
-    const GITHUB_AUTH_URL = 'https://github.com/login/oauth/authorize';
-    const params = {
-      response_type: 'code',
-      scope: 'user public_repo',
-      client_id: '96cc6be7039ab621069e',
-      state: 'test-t5'
-    }
-
-    const queryStrings = qs.stringify(params);
-    const authorizationUrl = `${GITHUB_AUTH_URL}?${queryStrings}`;
-    window.location.href = authorizationUrl;
-
-  }
-
-
-  async function getAccessToken() {
-
-    const { code } = qs.parseUrl(window.location.href).query;
-    if (code) {
-      try {
-        const response = await axios.post(`http://localhost:5000/login`, { code }); // This is the server
-        console.log("Access Token", response.data);
-        setAccessToken(response.data);
-        localStorage.setItem("accessToken", response.data);
-
-      } catch (err) {
-        alert("Ops something went wrong");
-        console.log("err", err);
-      }
-    }
-
-  }
 
   useEffect(() => {
 
@@ -133,28 +90,6 @@ function index() {
 
               ))}
           </div>
-        </div>
-
-      </div>
-    )
-  }
-  else {
-    return (
-      <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
-        <div className="sm:flex hidden mr-10 relative">
-          <Sidebar />
-        </div>
-        <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-
-          <nav className="bg-[#13131a] px-8 py-4 flex justify-between">
-            <div>
-              <a href="/" className="text-white font-bold text-xl">Zuzie</a>
-            </div>
-            <div className="flex items-center">
-              {userAutherized ? <button className="bg-[#2f80ed] text-white px-4 py-2 rounded-md" onClick={getAccessToken}>Get Access Token</button> : <button className="bg-[#2f80ed] text-white px-4 py-2 rounded-md" onClick={redirectToGithub}>Authenticate</button>}
-            </div>
-          </nav>
-
         </div>
 
       </div>

@@ -86,18 +86,6 @@ function index() {
     setUser(null);
     window.location.href = "/";
   }
-  function getevents(){
-    async function getUser() {
-      try {
-        const response = await axios.post(`http://localhost:5000/events`, { accessToken });
-        console.log("User Data", response.data);
-      } catch (err) {
-        alert("Ops something went wrong");
-        console.log("err", err);
-      }
-    }
-    getUser();
-  }
 
 
   if (accessToken && user) {
@@ -120,7 +108,7 @@ function index() {
           </nav>
           <div className="bg-[#1f1f2e] rounded-md p-4 mt-4">
             <h1 className="text-white font-bold text-xl">Latest Events</h1>
-            <button className="bg-[#2f2f3e] rounded-md p-4 mt-4 flex flex-row items-center" onClick={getevents}>Get latest events</button>
+            <button className="bg-[#2f2f3e] rounded-md p-4 mt-4 flex flex-row items-center" >Get latest events</button>
             <div className="flex flex-row mt-4">
               <div className="bg-[#2f2f3e] rounded-md p-4 flex-1 mr-4">
                 <h1 className="text-white font-bold text-xl">Repo 1</h1>

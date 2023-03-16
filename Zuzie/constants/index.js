@@ -17,10 +17,9 @@ export const navlinks = [
     link: '/Following',
   },
   {
-    name: 'CampaignDetails',
+    name: '/Mutual',
     imgUrl: withdraw,
-    link: '/',
-    disabled: true,
+    link: '/Mutual'
   },
   {
     name: '/Profile',

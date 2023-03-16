@@ -60,13 +60,13 @@ async function fetchUser(token) {
 }
 
 app.post("/followers", async (req, res) => {
-  const user = await fetchEvents(req.body.accessToken);
+  const user = await fetchFollowers(req.body.accessToken);
   res.status(200).json(user);
 });
 
 
 
-async function fetchEvents(token) {
+async function fetchFollowers(token) {
   const GITHUB_ENDPOINT = "https://api.github.com/user/followers";
   const response = await axios.get(GITHUB_ENDPOINT, {
     headers: {
